@@ -7,7 +7,7 @@
 
   Features:
     - Responsive navigation header with links to Home, About, Counter Editor,
-      Pinia, and Resources pages
+      Counter Display, Pinia, and Resources pages
     - Mobile drawer menu for small screens
     - Horizontal menu for desktop screens
     - RouterView container for rendering route components
@@ -52,6 +52,17 @@ const menuOptions: MenuOption[] = [
         },
       ),
     key: '/counter-editor',
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        { to: '/counter-display' },
+        {
+          default: () => 'Counter Display',
+        },
+      ),
+    key: '/counter-display',
   },
   {
     label: () => h(RouterLink, { to: '/pinia' }, { default: () => 'Pinia' }),
