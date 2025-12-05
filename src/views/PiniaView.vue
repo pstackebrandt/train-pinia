@@ -7,7 +7,7 @@
 
   Features:
     - Overview of Pinia state management
-    - Key concepts: stores, state, actions, getters
+    - Key concepts: stores, state, actions, getters, persistence
     - Links to official Pinia documentation and resources
     - Responsive layout using Naive UI components
 
@@ -33,6 +33,11 @@ const concepts = [
   {
     term: 'Getters',
     description: 'Computed properties that derive values from state',
+  },
+  {
+    term: 'Persistence',
+    description:
+      'Ability to save and restore state across browser sessions using localStorage or sessionStorage',
   },
 ]
 

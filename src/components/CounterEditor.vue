@@ -19,6 +19,7 @@
         lower bound)
       * Reset: Resets the counter to initial value (disabled when
         value hasn't changed)
+    - State persists across browser sessions using localStorage
     - Includes informational text about Pinia usage
     - Uses Naive UI components for consistent styling
 
@@ -39,6 +40,10 @@ defineProps<{
   <NCard>
     <h1>{{ pageTitle }}</h1>
     <p>We are using Pinia to manage the state of the application.</p>
+    <p>
+      The counter state persists across browser sessions using localStorage. Try refreshing the page
+      or closing and reopening the browser - your count will be preserved!
+    </p>
     <p>The count is {{ counterStore.count }}.</p>
     <NSpace :size="12">
       <NButton type="primary" @click="counterStore.increment"> Increment </NButton>

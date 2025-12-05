@@ -8,11 +8,12 @@ implementation beyond the basic counter example, including advanced patterns,
 plugins, testing, and other Pinia-specific functionality.
 
 **Note**: For general project improvements (UI components, styling, build
-configuration, etc.), see `IMPROVEMENTS.md`.
+configuration, etc.), see `improvements.md`.
 
 ## Table of Contents
 
 - [Pinia Ideas and Advanced Features](#pinia-ideas-and-advanced-features)
+  - [Purpose](#purpose)
   - [Table of Contents](#table-of-contents)
   - [1. Getters - Computed Values Derived from State](#1-getters---computed-values-derived-from-state)
   - [2. Multiple Stores - Modular State Management](#2-multiple-stores---modular-state-management)
