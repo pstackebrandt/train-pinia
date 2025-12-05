@@ -8,131 +8,110 @@
   Features:
     - Displays project overview and purpose
     - Links to Pinia information page and Resources page
-    - Responsive layout consistent with other views
+    - Responsive layout using Naive UI components
 
   Usage:
     This component is typically used as a route view in Vue Router.
 -->
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { NCard, NList, NListItem } from 'naive-ui'
+
+const goals = [
+  'Learn Pinia state management fundamentals',
+  'Understand TypeScript integration with Pinia',
+  'Explore store patterns and best practices',
+  'Build practical examples and use cases',
+]
+
+const links = [
+  {
+    label: 'About Pinia',
+    to: '/pinia',
+    description: 'Information about Pinia state management',
+  },
+  {
+    label: 'Resources',
+    to: '/resources',
+    description: 'Technologies and tools used in this project',
+  },
+]
 </script>
 
 <template>
-  <div class="about">
-    <div class="about-content">
+  <div class="content-wrapper">
+    <NCard>
       <h1>About This Project</h1>
+      <p>
+        Train Pinia is a learning project focused on exploring state management with Pinia in Vue 3
+        applications using TypeScript.
+      </p>
+      <p>
+        This project demonstrates practical examples of Pinia stores, state management patterns, and
+        best practices for building scalable Vue applications.
+      </p>
 
-      <div class="description">
-        <p>
-          Train Pinia is a learning project focused on exploring state management with Pinia in Vue
-          3 applications using TypeScript.
-        </p>
-        <p>
-          This project demonstrates practical examples of Pinia stores, state management patterns,
-          and best practices for building scalable Vue applications.
-        </p>
-      </div>
-
-      <div class="goals">
+      <div class="section">
         <h3>Project Goals</h3>
-        <ul>
-          <li>Learn Pinia state management fundamentals</li>
-          <li>Understand TypeScript integration with Pinia</li>
-          <li>Explore store patterns and best practices</li>
-          <li>Build practical examples and use cases</li>
-        </ul>
+        <NList>
+          <NListItem v-for="goal in goals" :key="goal">
+            {{ goal }}
+          </NListItem>
+        </NList>
       </div>
 
-      <div class="links">
+      <div class="section">
         <h3>Learn More</h3>
-        <ul>
-          <li>
-            <RouterLink to="/pinia">About Pinia</RouterLink>
-            - Information about Pinia state management
-          </li>
-          <li>
-            <RouterLink to="/resources">Resources</RouterLink>
-            - Technologies and tools used in this project
-          </li>
-        </ul>
+        <NList>
+          <NListItem v-for="link in links" :key="link.to">
+            <RouterLink :to="link.to">{{ link.label }}</RouterLink>
+            - {{ link.description }}
+          </NListItem>
+        </NList>
       </div>
-    </div>
+    </NCard>
   </div>
 </template>
 
 <style scoped>
-.about {
+.content-wrapper {
   max-width: 1024px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-.about-content h1 {
+h1 {
+  font-size: 2rem;
   font-weight: 500;
-  font-size: 2.6rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-h3 {
-  font-size: 1.4rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.description {
-  margin-top: 1rem;
-}
-
-.description p {
-  font-size: 1.1rem;
-  line-height: 1.6;
   margin-bottom: 1rem;
 }
 
-.goals ul,
-.links ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  line-height: 1.8;
+h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
 }
 
-.goals li,
-.links li {
-  margin-bottom: 0.3rem;
+p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
 }
 
-.links a {
-  color: var(--color-text);
+.section {
+  margin-top: 2rem;
+}
+
+.section a {
+  font-weight: 500;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s;
-}
-
-.links a:hover {
-  border-bottom-color: var(--color-text);
-}
-
-.about-content h1,
-.about-content h3 {
-  text-align: center;
 }
 
 @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+  .content-wrapper {
     padding: 2rem;
-  }
-
-  .about-content h1,
-  .about-content h3 {
-    text-align: left;
-  }
-
-  .description p {
-    font-size: 1.2rem;
   }
 }
 </style>

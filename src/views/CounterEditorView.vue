@@ -8,6 +8,7 @@
   Features:
     - Displays the CounterEditor component with a page title
     - Serves as a route view for the counter editor functionality
+    - Responsive layout using Naive UI components
 
   Usage:
     This component is typically used as a route view in Vue Router.
@@ -17,12 +18,23 @@ import CounterEditor from '../components/CounterEditor.vue'
 </script>
 
 <template>
-  <main>
+  <div class="content-wrapper">
     <CounterEditor pageTitle="Counter editor" />
-  </main>
+  </div>
 </template>
 
 <style scoped>
-/* No styles needed - component styling handled by child
-   components */
+.content-wrapper {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 1rem 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .content-wrapper {
+    padding: 2rem;
+  }
+}
 </style>

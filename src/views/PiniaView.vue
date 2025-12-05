@@ -9,139 +9,124 @@
     - Overview of Pinia state management
     - Key concepts: stores, state, actions, getters
     - Links to official Pinia documentation and resources
-    - Responsive layout consistent with other views
+    - Responsive layout using Naive UI components
 
   Usage:
     This component is typically used as a route view in Vue Router.
 -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { NCard, NList, NListItem } from 'naive-ui'
+
+const concepts = [
+  {
+    term: 'Stores',
+    description: 'Containers that hold state and business logic',
+  },
+  {
+    term: 'State',
+    description: 'The reactive data stored in a Pinia store',
+  },
+  {
+    term: 'Actions',
+    description: 'Methods that can mutate state and perform asynchronous operations',
+  },
+  {
+    term: 'Getters',
+    description: 'Computed properties that derive values from state',
+  },
+]
+
+const resources = [
+  {
+    name: 'Pinia Documentation',
+    url: 'https://pinia.vuejs.org/',
+  },
+  {
+    name: 'Core Concepts',
+    url: 'https://pinia.vuejs.org/core-concepts/',
+  },
+  {
+    name: 'Cookbook',
+    url: 'https://pinia.vuejs.org/cookbook/',
+  },
+  {
+    name: 'API Reference',
+    url: 'https://pinia.vuejs.org/api/',
+  },
+]
+</script>
 
 <template>
-  <div class="pinia">
-    <div class="pinia-content">
+  <div class="content-wrapper">
+    <NCard>
       <h1>About Pinia</h1>
+      <p>
+        Pinia is the official state management library for Vue.js. It provides a simple and
+        intuitive API for managing application state with full TypeScript support.
+      </p>
 
-      <div class="description">
-        <p>
-          Pinia is the official state management library for Vue.js. It provides a simple and
-          intuitive API for managing application state with full TypeScript support.
-        </p>
-      </div>
-
-      <div class="concepts">
+      <div class="section">
         <h3>Key Concepts</h3>
-        <ul>
-          <li><strong>Stores</strong> - Containers that hold state and business logic</li>
-          <li><strong>State</strong> - The reactive data stored in a Pinia store</li>
-          <li>
-            <strong>Actions</strong> - Methods that can mutate state and perform asynchronous
-            operations
-          </li>
-          <li><strong>Getters</strong> - Computed properties that derive values from state</li>
-        </ul>
+        <NList>
+          <NListItem v-for="concept in concepts" :key="concept.term">
+            <strong>{{ concept.term }}</strong> - {{ concept.description }}
+          </NListItem>
+        </NList>
       </div>
 
-      <div class="resources">
+      <div class="section">
         <h3>Official Resources</h3>
-        <ul>
-          <li>
-            <a href="https://pinia.vuejs.org/" target="_blank" rel="noopener">
-              Pinia Documentation
+        <NList>
+          <NListItem v-for="resource in resources" :key="resource.url">
+            <a :href="resource.url" target="_blank" rel="noopener">
+              {{ resource.name }}
             </a>
-          </li>
-          <li>
-            <a href="https://pinia.vuejs.org/core-concepts/" target="_blank" rel="noopener">
-              Core Concepts
-            </a>
-          </li>
-          <li>
-            <a href="https://pinia.vuejs.org/cookbook/" target="_blank" rel="noopener">
-              Cookbook
-            </a>
-          </li>
-          <li>
-            <a href="https://pinia.vuejs.org/api/" target="_blank" rel="noopener">
-              API Reference
-            </a>
-          </li>
-        </ul>
+          </NListItem>
+        </NList>
       </div>
-    </div>
+    </NCard>
   </div>
 </template>
 
 <style scoped>
-.pinia {
+.content-wrapper {
   max-width: 1024px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-.pinia-content h1 {
+h1 {
+  font-size: 2rem;
   font-weight: 500;
-  font-size: 2.6rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  margin-bottom: 1rem;
 }
 
 h3 {
-  font-size: 1.4rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
 }
 
-.description {
-  margin-top: 1rem;
-}
-
-.description p {
-  font-size: 1.1rem;
+p {
+  margin-bottom: 1rem;
   line-height: 1.6;
 }
 
-.concepts ul,
-.resources ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  line-height: 1.8;
+.section {
+  margin-top: 2rem;
 }
 
-.concepts li,
-.resources li {
-  margin-bottom: 0.3rem;
-}
-
-.resources a {
-  color: var(--color-text);
+.section a {
+  font-weight: 500;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s;
-}
-
-.resources a:hover {
-  border-bottom-color: var(--color-text);
-}
-
-.pinia-content h1,
-.pinia-content h3 {
-  text-align: center;
 }
 
 @media (min-width: 1024px) {
-  .pinia {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+  .content-wrapper {
     padding: 2rem;
-  }
-
-  .pinia-content h1,
-  .pinia-content h3 {
-    text-align: left;
-  }
-
-  .description p {
-    font-size: 1.2rem;
   }
 }
 </style>

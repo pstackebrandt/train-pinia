@@ -6,86 +6,115 @@
   for the entire application.
 
   Features:
-    - Navigation header with links to Home, About, Counter Editor,
+    - Responsive navigation header with links to Home, About, Counter Editor,
       Pinia, and Resources pages
+    - Mobile drawer menu for small screens
+    - Horizontal menu for desktop screens
     - RouterView container for rendering route components
-    - Responsive navigation styling
 
   Usage:
     This component is the root component mounted in main.ts and serves
     as the entry point for the Vue application.
 -->
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
+import {
+  NConfigProvider,
+  NLayout,
+  NLayoutHeader,
+  NLayoutContent,
+  NMenu,
+  NDrawer,
+  NButton,
+} from 'naive-ui'
+import { computed, h, ref } from 'vue'
+import type { MenuOption } from 'naive-ui'
+
+const route = useRoute()
+const showMobileMenu = ref(false)
+
+const menuOptions: MenuOption[] = [
+  {
+    label: () => h(RouterLink, { to: '/' }, { default: () => 'Home' }),
+    key: '/',
+  },
+  {
+    label: () => h(RouterLink, { to: '/about' }, { default: () => 'About' }),
+    key: '/about',
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        { to: '/counter-editor' },
+        {
+          default: () => 'Counter Editor',
+        },
+      ),
+    key: '/counter-editor',
+  },
+  {
+    label: () => h(RouterLink, { to: '/pinia' }, { default: () => 'Pinia' }),
+    key: '/pinia',
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        { to: '/resources' },
+        {
+          default: () => 'Resources',
+        },
+      ),
+    key: '/resources',
+  },
+]
+
+const activeKey = computed(() => route.path)
+
+const handleMenuClick = () => {
+  showMobileMenu.value = false
+}
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/counter-editor">Counter Editor</RouterLink>
-        <RouterLink to="/pinia">Pinia</RouterLink>
-        <RouterLink to="/resources">Resources</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <NConfigProvider>
+    <NLayout :has-sider="false">
+      <NLayoutHeader bordered>
+        <NButton class="mobile-menu-button" @click="showMobileMenu = true"> ☰ </NButton>
+        <NMenu class="desktop-menu" mode="horizontal" :options="menuOptions" :value="activeKey" />
+      </NLayoutHeader>
+      <NDrawer v-model:show="showMobileMenu" placement="left" width="250">
+        <NMenu
+          mode="vertical"
+          :options="menuOptions"
+          :value="activeKey"
+          @update:value="handleMenuClick"
+        />
+      </NDrawer>
+      <NLayoutContent>
+        <RouterView />
+      </NLayoutContent>
+    </NLayout>
+  </NConfigProvider>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.mobile-menu-button {
+  display: block;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.desktop-menu {
+  display: none;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+@media (min-width: 768px) {
+  .mobile-menu-button {
+    display: none;
   }
 
-  header .wrapper {
+  .desktop-menu {
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
   }
 }
 </style>

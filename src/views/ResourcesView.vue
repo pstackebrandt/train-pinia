@@ -8,93 +8,108 @@
   Features:
     - Technologies organized by category
     - Links to official documentation
-    - Responsive layout consistent with other views
+    - Responsive layout using Naive UI components
 
   Usage:
     This component is typically used as a route view in Vue Router.
 -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { NCard, NList, NListItem } from 'naive-ui'
+
+const technologies = [
+  {
+    category: 'Core Framework',
+    items: [
+      {
+        name: 'Vue 3',
+        url: 'https://vuejs.org/',
+        description: 'Progressive JavaScript framework',
+      },
+      {
+        name: 'TypeScript',
+        url: 'https://www.typescriptlang.org/',
+        description: 'Typed JavaScript at scale',
+      },
+      {
+        name: 'Vue Router',
+        url: 'https://router.vuejs.org/',
+        description: 'Official router for Vue.js',
+      },
+    ],
+  },
+  {
+    category: 'Build Tools',
+    items: [
+      {
+        name: 'Vite',
+        url: 'https://vite.dev/',
+        description: 'Next generation frontend tooling',
+      },
+    ],
+  },
+  {
+    category: 'Development Tools',
+    items: [
+      {
+        name: 'Vue DevTools',
+        url: 'https://github.com/vuejs/devtools',
+        description: 'Browser extension for debugging Vue applications',
+      },
+      {
+        name: 'ESLint',
+        url: 'https://eslint.org/',
+        description: 'JavaScript linter',
+      },
+      {
+        name: 'Prettier',
+        url: 'https://prettier.io/',
+        description: 'Code formatter',
+      },
+    ],
+  },
+  {
+    category: 'Testing',
+    items: [
+      {
+        name: 'Vitest',
+        url: 'https://vitest.dev/',
+        description: 'Fast unit test framework',
+      },
+      {
+        name: 'Cypress',
+        url: 'https://www.cypress.io/',
+        description: 'End-to-end testing framework',
+      },
+      {
+        name: 'Playwright',
+        url: 'https://playwright.dev/',
+        description: 'End-to-end testing framework',
+      },
+    ],
+  },
+]
+</script>
 
 <template>
   <div class="resources">
-    <div class="resources-content">
+    <NCard>
       <h1>Resources</h1>
+      <p>
+        Technologies and tools used in this project. Links to official documentation and resources.
+      </p>
 
-      <div class="description">
-        <p>
-          Technologies and tools used in this project. Links to official documentation and
-          resources.
-        </p>
-      </div>
-
-      <div class="category">
-        <h3>Core Framework</h3>
-        <ul>
-          <li>
-            <a href="https://vuejs.org/" target="_blank" rel="noopener"> Vue 3 </a>
-            - Progressive JavaScript framework
-          </li>
-          <li>
-            <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">
-              TypeScript
+      <div v-for="tech in technologies" :key="tech.category" class="category">
+        <h3>{{ tech.category }}</h3>
+        <NList>
+          <NListItem v-for="item in tech.items" :key="item.name">
+            <a :href="item.url" target="_blank" rel="noopener">
+              {{ item.name }}
             </a>
-            - Typed JavaScript at scale
-          </li>
-          <li>
-            <a href="https://router.vuejs.org/" target="_blank" rel="noopener"> Vue Router </a>
-            - Official router for Vue.js
-          </li>
-        </ul>
+            - {{ item.description }}
+          </NListItem>
+        </NList>
       </div>
-
-      <div class="category">
-        <h3>Build Tools</h3>
-        <ul>
-          <li>
-            <a href="https://vite.dev/" target="_blank" rel="noopener"> Vite </a>
-            - Next generation frontend tooling
-          </li>
-        </ul>
-      </div>
-
-      <div class="category">
-        <h3>Development Tools</h3>
-        <ul>
-          <li>
-            <a href="https://github.com/vuejs/devtools" target="_blank" rel="noopener">
-              Vue DevTools
-            </a>
-            - Browser extension for debugging Vue applications
-          </li>
-          <li>
-            <a href="https://eslint.org/" target="_blank" rel="noopener"> ESLint </a>
-            - JavaScript linter
-          </li>
-          <li>
-            <a href="https://prettier.io/" target="_blank" rel="noopener"> Prettier </a>
-            - Code formatter
-          </li>
-        </ul>
-      </div>
-
-      <div class="category">
-        <h3>Testing</h3>
-        <ul>
-          <li>
-            <a href="https://vitest.dev/" target="_blank" rel="noopener"> Vitest </a>
-            - Fast unit test framework
-          </li>
-          <li>
-            <a href="https://www.cypress.io/" target="_blank" rel="noopener"> Cypress </a>
-            - End-to-end testing framework
-          </li>
-          <li>
-            <a href="https://playwright.dev/" target="_blank" rel="noopener"> Playwright </a>
-            - End-to-end testing framework
-          </li>
-        </ul>
-      </div>
-    </div>
+    </NCard>
   </div>
 </template>
 
@@ -102,72 +117,41 @@
 .resources {
   max-width: 1024px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-.resources-content h1 {
+h1 {
+  font-size: 2rem;
   font-weight: 500;
-  font-size: 2.6rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  margin-bottom: 1rem;
 }
 
 h3 {
-  font-size: 1.4rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
 }
 
-.description {
-  margin-top: 1rem;
-}
-
-.description p {
-  font-size: 1.1rem;
+p {
+  margin-bottom: 1rem;
   line-height: 1.6;
 }
 
-.category ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  line-height: 1.8;
-}
-
-.category li {
-  margin-bottom: 0.3rem;
+.category {
+  margin-top: 2rem;
 }
 
 .category a {
-  color: var(--color-text);
+  font-weight: 500;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s;
-}
-
-.category a:hover {
-  border-bottom-color: var(--color-text);
-}
-
-.resources-content h1,
-.resources-content h3 {
-  text-align: center;
 }
 
 @media (min-width: 1024px) {
   .resources {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
     padding: 2rem;
-  }
-
-  .resources-content h1,
-  .resources-content h3 {
-    text-align: left;
-  }
-
-  .description p {
-    font-size: 1.2rem;
   }
 }
 </style>

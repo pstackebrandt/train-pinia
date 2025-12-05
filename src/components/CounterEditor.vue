@@ -18,13 +18,15 @@
       * Decrement: Decreases the counter by 1
       * Reset: Resets the counter to 0
     - Includes informational text about Pinia usage
-    - Uses scoped styles for component-specific styling
+    - Uses Naive UI components for consistent styling
 
   Usage:
     <CounterEditor pageTitle="My Counter Page" />
 -->
 <script setup lang="ts">
+import { NButton, NCard, NSpace } from 'naive-ui'
 import { useCounterStore } from '../stores/counter'
+
 const counterStore = useCounterStore()
 defineProps<{
   pageTitle: string
@@ -32,37 +34,27 @@ defineProps<{
 </script>
 
 <template>
-  <div>
-    <h1 class="page-title">{{ pageTitle }}</h1>
-    <h3>We are using Pinia to manage the state of the application.</h3>
+  <NCard>
+    <h1>{{ pageTitle }}</h1>
+    <p>We are using Pinia to manage the state of the application.</p>
     <p>The count is {{ counterStore.count }}.</p>
-    <button @click="counterStore.increment">Increment</button>
-    <button @click="counterStore.decrement">Decrement</button>
-    <button @click="counterStore.reset">Reset</button>
-  </div>
+    <NSpace :size="12">
+      <NButton type="primary" @click="counterStore.increment"> Increment </NButton>
+      <NButton @click="counterStore.decrement">Decrement</NButton>
+      <NButton @click="counterStore.reset">Reset</NButton>
+    </NSpace>
+  </NCard>
 </template>
 
 <style scoped>
 h1 {
+  font-size: 2rem;
   font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
+  margin-bottom: 1rem;
 }
 
-h3 {
-  font-size: 1.2rem;
-}
-
-h1.page-title,
-h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  h1.page-title,
-  h3 {
-    text-align: left;
-  }
+p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
 }
 </style>
