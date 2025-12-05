@@ -15,8 +15,10 @@
     - Displays the current count value from the store
     - Provides three action buttons:
       * Increment: Increases the counter by 1
-      * Decrement: Decreases the counter by 1
-      * Reset: Resets the counter to 0
+      * Decrement: Decreases the counter by 1 (disabled when at
+        lower bound)
+      * Reset: Resets the counter to initial value (disabled when
+        value hasn't changed)
     - Includes informational text about Pinia usage
     - Uses Naive UI components for consistent styling
 
@@ -43,7 +45,7 @@ defineProps<{
       <NButton @click="counterStore.decrement" :disabled="!counterStore.canDecrement">
         Decrement
       </NButton>
-      <NButton @click="counterStore.reset">Reset</NButton>
+      <NButton @click="counterStore.reset" :disabled="!counterStore.canReset"> Reset </NButton>
     </NSpace>
   </NCard>
 </template>

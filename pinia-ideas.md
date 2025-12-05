@@ -33,6 +33,13 @@ const isPositive = computed(() => count.value > 0)
 const doubleCount = computed(() => count.value * 2)
 ```
 
+**Implemented**: You've added computed properties for validation:
+
+- `canDecrement` - Returns true when count is greater than LOWER_BOUND
+- `canReset` - Returns true when count differs from INITIAL_VALUE
+
+These computed properties enable conditional button states in your UI.
+
 ## 2. Multiple Stores - Modular State Management
 
 Create separate stores for different domains of your application:
@@ -144,11 +151,23 @@ export const useCounterStore = defineStore('counter', {
 Add a reset function to restore initial state:
 
 ```typescript
+// Configuration constants
+const LOWER_BOUND = 0
+const INITIAL_VALUE = 0
+
+// Computed property to check if reset is allowed
+const canReset = computed(() => count.value !== INITIAL_VALUE)
+
 function reset() {
-  count.value = 0
-  // Reset other state...
+  count.value = INITIAL_VALUE
 }
 ```
+
+**Implemented**: You've added a reset function that:
+
+- Uses `INITIAL_VALUE` constant instead of hardcoded 0
+- Includes `canReset` computed property to conditionally enable/disable the reset button
+- Resets the counter to the configured initial value
 
 ## 10. Store Testing - Unit Test Your Stores
 
@@ -205,13 +224,12 @@ counterStore.$subscribe((mutation, state) => {
 
 ## Quick Wins for Your Current Setup
 
-1. **Fix the todo**: Prevent counter from going below 0
-2. **Add getters**: `isEven`, `isPositive`, `doubleCount`
-3. **Add validation**: Ensure count stays within bounds
+1. ✅ **Fix the todo**: Prevent counter from going below 0 (using `LOWER_BOUND` and `canDecrement`)
+2. ✅ **Add getters**: `canDecrement`, `canReset` (computed properties for validation)
+3. ✅ **Add validation**: Ensure count stays within bounds (using constants and computed properties)
 4. **Add history**: Track count changes over time
 
 ## Resources
 
 - [Pinia Documentation](https://pinia.vuejs.org/)
 - [Pinia GitHub](https://github.com/vuejs/pinia)
-
