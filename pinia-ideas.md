@@ -54,8 +54,16 @@ Create separate stores for different domains of your application:
 
 - `user.ts` - Authentication and user profile data
 - `todos.ts` - Todo items with CRUD operations
-- `settings.ts` - Application preferences and themes
+- ✅ `settings.ts` - Application preferences and themes (**Implemented**)
 - `cart.ts` - Shopping cart functionality
+
+**Implemented**: You've created a settings store (`src/stores/settings.ts`) that:
+
+- Manages theme preferences (light/dark mode)
+- Provides `toggleTheme()` and `setTheme()` actions
+- Includes `isDark` computed property for convenience
+- Persists theme preferences using localStorage
+- Integrates with Naive UI's `NConfigProvider` for global theme application
 
 ## 3. Store Composition - Stores Using Other Stores
 
@@ -87,6 +95,13 @@ export const useSettingsStore = defineStore('settings', () => {
   persist: true // Automatically saves to localStorage
 })
 ```
+
+**Implemented**: You've added persistent state to multiple stores:
+
+- Installed `pinia-plugin-persistedstate` package
+- Registered the plugin in `main.ts`
+- **Counter store**: Configured persistence with a custom key (`'counter'`) and `localStorage` storage - the counter state persists across page reloads
+- **Settings store**: Configured persistence with a custom key (`'settings'`) and `localStorage` storage - theme preferences persist across page reloads
 
 ## 5. Async Actions - API Calls and Side Effects
 
@@ -235,7 +250,8 @@ counterStore.$subscribe((mutation, state) => {
 1. ✅ **Fix the todo**: Prevent counter from going below 0 (using `LOWER_BOUND` and `canDecrement`)
 2. ✅ **Add getters**: `canDecrement`, `canReset` (computed properties for validation)
 3. ✅ **Add validation**: Ensure count stays within bounds (using constants and computed properties)
-4. **Add history**: Track count changes over time
+4. ✅ **Multiple stores**: Created settings store for theme management with persistence
+5. **Add history**: Track count changes over time
 
 ## Resources
 

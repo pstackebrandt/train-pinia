@@ -9,45 +9,38 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
+    // Routes below use dynamic imports for code-splitting:
+    // each route generates a separate chunk that is lazy-loaded
+    // when the route is visited, reducing initial bundle size.
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
     {
       path: '/counter-editor',
       name: 'counter-editor',
-      // route level code-splitting
-      // this generates a separate chunk (CounterEditor.[hash].js) for
-      // this route which is lazy-loaded when the route is visited.
       component: () => import('../views/CounterEditorView.vue'),
     },
     {
       path: '/counter-display',
       name: 'counter-display',
-      // route level code-splitting
-      // this generates a separate chunk (CounterDisplay.[hash].js) for
-      // this route which is lazy-loaded when the route is visited.
       component: () => import('../views/CounterDisplayView.vue'),
     },
     {
       path: '/pinia',
       name: 'pinia',
-      // route level code-splitting
-      // this generates a separate chunk (Pinia.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/PiniaView.vue'),
     },
     {
       path: '/resources',
       name: 'resources',
-      // route level code-splitting
-      // this generates a separate chunk (Resources.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/ResourcesView.vue'),
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('../views/SettingsView.vue'),
     },
   ],
 })

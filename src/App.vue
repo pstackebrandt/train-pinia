@@ -7,10 +7,11 @@
 
   Features:
     - Responsive navigation header with links to Home, About, Counter Editor,
-      Counter Display, Pinia, and Resources pages
+      Counter Display, Pinia, Resources, and Settings pages
     - Mobile drawer menu for small screens
     - Horizontal menu for desktop screens
     - RouterView container for rendering route components
+    - Theme support (light/dark mode) via Naive UI NConfigProvider
 
   Usage:
     This component is the root component mounted in main.ts and serves
@@ -26,12 +27,18 @@ import {
   NMenu,
   NDrawer,
   NButton,
+  darkTheme,
+  lightTheme,
 } from 'naive-ui'
 import { computed, h, ref } from 'vue'
 import type { MenuOption } from 'naive-ui'
+import { useSettingsStore } from './stores/settings'
 
 const route = useRoute()
 const showMobileMenu = ref(false)
+const settingsStore = useSettingsStore()
+
+const naiveTheme = computed(() => (settingsStore.isDark ? darkTheme : lightTheme))
 
 const menuOptions: MenuOption[] = [
   {
@@ -79,6 +86,10 @@ const menuOptions: MenuOption[] = [
       ),
     key: '/resources',
   },
+  {
+    label: () => h(RouterLink, { to: '/settings' }, { default: () => 'Settings' }),
+    key: '/settings',
+  },
 ]
 
 const activeKey = computed(() => route.path)
@@ -89,7 +100,7 @@ const handleMenuClick = () => {
 </script>
 
 <template>
-  <NConfigProvider>
+  <NConfigProvider :theme="naiveTheme">
     <NLayout :has-sider="false">
       <NLayoutHeader bordered>
         <NButton class="mobile-menu-button" @click="showMobileMenu = true"> ☰ </NButton>
