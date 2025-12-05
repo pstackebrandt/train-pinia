@@ -40,7 +40,9 @@ defineProps<{
     <p>The count is {{ counterStore.count }}.</p>
     <NSpace :size="12">
       <NButton type="primary" @click="counterStore.increment"> Increment </NButton>
-      <NButton @click="counterStore.decrement">Decrement</NButton>
+      <NButton @click="counterStore.decrement" :disabled="!counterStore.canDecrement">
+        Decrement
+      </NButton>
       <NButton @click="counterStore.reset">Reset</NButton>
     </NSpace>
   </NCard>

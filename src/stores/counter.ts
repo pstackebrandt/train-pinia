@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 /**
@@ -9,19 +9,26 @@ export const useCounterStore = defineStore('counter', () => {
   const count = ref(0)
 
   /**
+   * @summary Computed property indicating if decrement is allowed.
+   * @description Returns true when count is greater than 0.
+   */
+  const canDecrement = computed(() => count.value > 0)
+
+  /**
    * @summary Increments the counter value.
    */
   function increment() {
     count.value++
   }
 
-  // todo Make sure that the counter can't go below 0.
-
   /**
    * @summary Decrements the counter value.
+   * @description Prevents the counter from going below 0.
    */
   function decrement() {
-    count.value--
+    if (canDecrement.value) {
+      count.value--
+    }
   }
 
   /**
@@ -31,5 +38,5 @@ export const useCounterStore = defineStore('counter', () => {
     count.value = 0
   }
 
-  return { count, increment, decrement, reset }
+  return { count, canDecrement, increment, decrement, reset }
 })
