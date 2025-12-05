@@ -1,7 +1,14 @@
 # Pinia Ideas and Advanced Features
 
-This document contains ideas and suggestions for extending your Pinia
-store implementation beyond the basic counter example.
+## Purpose
+
+This document contains ideas and suggestions specifically related to Pinia
+state management features. It focuses on extending your Pinia store
+implementation beyond the basic counter example, including advanced patterns,
+plugins, testing, and other Pinia-specific functionality.
+
+**Note**: For general project improvements (UI components, styling, build
+configuration, etc.), see `IMPROVEMENTS.md`.
 
 ## Table of Contents
 
