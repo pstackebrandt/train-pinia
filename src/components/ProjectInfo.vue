@@ -4,21 +4,23 @@
   Displays project information including description and tech stack.
   This component provides an overview of the project.
 -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { NH1, NH3, NP } from 'naive-ui'
+</script>
 
 <template>
   <div class="project-info">
-    <h1 class="green">Train Pinia</h1>
+    <NH1 class="green">Train Pinia</NH1>
     <div class="description">
-      <p>
+      <NP>
         A learning project exploring Pinia for state management with Vue 3 and TypeScript. This
         project demonstrates how to set up and use Pinia stores, including examples of state
         management patterns and best practices.
-      </p>
+      </NP>
     </div>
 
     <div class="tech-stack">
-      <h3>Technologies Used</h3>
+      <NH3>Technologies Used</NH3>
       <ul>
         <li>Vue 3</li>
         <li>TypeScript</li>
@@ -34,19 +36,6 @@
 </template>
 
 <style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
-
-h3 {
-  font-size: 1.4rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .project-info {
   max-width: 1024px;
   margin: 0 auto;
@@ -54,13 +43,21 @@ h3 {
   width: 100%;
 }
 
-.description {
-  margin-top: 1rem;
+.project-info :deep(.n-h1) {
+  font-weight: 500;
+  font-size: 2.6rem;
+  position: relative;
+  top: -10px;
 }
 
-.description p {
-  font-size: 1.1rem;
-  line-height: 1.6;
+.project-info :deep(.n-h3) {
+  font-size: 1.4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  margin-top: 1rem;
 }
 
 .tech-stack ul {
@@ -73,19 +70,15 @@ h3 {
   margin-bottom: 0.3rem;
 }
 
-.project-info h1,
-.project-info h3 {
+.project-info :deep(.n-h1),
+.project-info :deep(.n-h3) {
   text-align: center;
 }
 
 @media (min-width: 1024px) {
-  .project-info h1,
-  .project-info h3 {
+  .project-info :deep(.n-h1),
+  .project-info :deep(.n-h3) {
     text-align: left;
-  }
-
-  .description p {
-    font-size: 1.2rem;
   }
 }
 </style>

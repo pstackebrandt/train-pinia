@@ -15,7 +15,7 @@
     This component is typically used as a route view in Vue Router.
 -->
 <script setup lang="ts">
-import { NCard } from 'naive-ui'
+import { NCard, NH1, NP } from 'naive-ui'
 import { useCounterStore } from '../stores/counter'
 
 const counterStore = useCounterStore()
@@ -24,20 +24,20 @@ const counterStore = useCounterStore()
 <template>
   <div class="content-wrapper">
     <NCard>
-      <h1>Counter Display</h1>
-      <p>
+      <NH1>Counter Display</NH1>
+      <NP>
         This view demonstrates that the counter data from the Pinia store
         can be accessed from multiple views. This view is read-only and
         cannot modify the counter value.
-      </p>
-      <p>
+      </NP>
+      <NP>
         The current count is
         <strong class="count-value">{{ counterStore.count }}</strong>.
-      </p>
-      <p class="info-text">
+      </NP>
+      <NP class="info-text">
         Try changing the counter in the Counter Editor view and watch
         this value update automatically!
-      </p>
+      </NP>
     </NCard>
   </div>
 </template>
@@ -49,17 +49,6 @@ const counterStore = useCounterStore()
   padding: 1rem 0.5rem;
   box-sizing: border-box;
   width: 100%;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-
-p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
 }
 
 .count-value {

@@ -15,7 +15,7 @@
 -->
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { NCard, NList, NListItem } from 'naive-ui'
+import { NCard, NList, NListItem, NH1, NH3, NP } from 'naive-ui'
 
 const goals = [
   'Learn Pinia state management fundamentals',
@@ -41,18 +41,18 @@ const links = [
 <template>
   <div class="content-wrapper">
     <NCard>
-      <h1>About This Project</h1>
-      <p>
+      <NH1>About This Project</NH1>
+      <NP>
         Train Pinia is a learning project focused on exploring state management with Pinia in Vue 3
         applications using TypeScript.
-      </p>
-      <p>
+      </NP>
+      <NP>
         This project demonstrates practical examples of Pinia stores, state management patterns, and
         best practices for building scalable Vue applications.
-      </p>
+      </NP>
 
       <div class="section">
-        <h3>Project Goals</h3>
+        <NH3>Project Goals</NH3>
         <NList>
           <NListItem v-for="goal in goals" :key="goal">
             {{ goal }}
@@ -61,7 +61,7 @@ const links = [
       </div>
 
       <div class="section">
-        <h3>Learn More</h3>
+        <NH3>Learn More</NH3>
         <NList>
           <NListItem v-for="link in links" :key="link.to">
             <RouterLink :to="link.to">{{ link.label }}</RouterLink>
@@ -80,24 +80,6 @@ const links = [
   padding: 1rem 0.5rem;
   box-sizing: border-box;
   width: 100%;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-
-h3 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
-
-p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
 }
 
 .section {

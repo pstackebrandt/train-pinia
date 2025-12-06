@@ -27,7 +27,7 @@
     <CounterEditor pageTitle="My Counter Page" />
 -->
 <script setup lang="ts">
-import { NButton, NCard, NSpace } from 'naive-ui'
+import { NButton, NCard, NSpace, NH1, NP } from 'naive-ui'
 import { useCounterStore } from '../stores/counter'
 
 const counterStore = useCounterStore()
@@ -38,13 +38,13 @@ defineProps<{
 
 <template>
   <NCard>
-    <h1>{{ pageTitle }}</h1>
-    <p>We are using Pinia to manage the state of the application.</p>
-    <p>
+    <NH1>{{ pageTitle }}</NH1>
+    <NP>We are using Pinia to manage the state of the application.</NP>
+    <NP>
       The counter state persists across browser sessions using localStorage. Try refreshing the page
       or closing and reopening the browser - your count will be preserved!
-    </p>
-    <p>The count is {{ counterStore.count }}.</p>
+    </NP>
+    <NP>The count is {{ counterStore.count }}.</NP>
     <NSpace :size="12">
       <NButton type="primary" @click="counterStore.increment"> Increment </NButton>
       <NButton @click="counterStore.decrement" :disabled="!counterStore.canDecrement">
@@ -55,15 +55,4 @@ defineProps<{
   </NCard>
 </template>
 
-<style scoped>
-h1 {
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-
-p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
-</style>
+<style scoped></style>

@@ -15,7 +15,7 @@
     This component is typically used as a route view in Vue Router.
 -->
 <script setup lang="ts">
-import { NCard, NList, NListItem } from 'naive-ui'
+import { NCard, NList, NListItem, NH1, NH3, NP } from 'naive-ui'
 
 const concepts = [
   {
@@ -64,14 +64,14 @@ const resources = [
 <template>
   <div class="content-wrapper">
     <NCard>
-      <h1>About Pinia</h1>
-      <p>
+      <NH1>About Pinia</NH1>
+      <NP>
         Pinia is the official state management library for Vue.js. It provides a simple and
         intuitive API for managing application state with full TypeScript support.
-      </p>
+      </NP>
 
       <div class="section">
-        <h3>Key Concepts</h3>
+        <NH3>Key Concepts</NH3>
         <NList>
           <NListItem v-for="concept in concepts" :key="concept.term">
             <strong>{{ concept.term }}</strong> - {{ concept.description }}
@@ -80,7 +80,7 @@ const resources = [
       </div>
 
       <div class="section">
-        <h3>Official Resources</h3>
+        <NH3>Official Resources</NH3>
         <NList>
           <NListItem v-for="resource in resources" :key="resource.url">
             <a :href="resource.url" target="_blank" rel="noopener">
@@ -100,24 +100,6 @@ const resources = [
   padding: 1rem 0.5rem;
   box-sizing: border-box;
   width: 100%;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-
-h3 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
-
-p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
 }
 
 .section {

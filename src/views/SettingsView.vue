@@ -16,7 +16,7 @@
     This component is typically used as a route view in Vue Router.
 -->
 <script setup lang="ts">
-import { NCard, NSpace, NRadioGroup, NRadio } from 'naive-ui'
+import { NCard, NSpace, NRadioGroup, NRadio, NH1, NH3, NP } from 'naive-ui'
 import { useSettingsStore } from '../stores/settings'
 
 const settingsStore = useSettingsStore()
@@ -25,19 +25,19 @@ const settingsStore = useSettingsStore()
 <template>
   <div class="content-wrapper">
     <NCard>
-      <h1>Application Settings</h1>
-      <p>
+      <NH1>Application Settings</NH1>
+      <NP>
         Configure your application preferences here. Settings are managed using Pinia stores and
         persist across browser sessions using localStorage.
-      </p>
+      </NP>
 
       <div class="section">
-        <h3>Theme Settings</h3>
-        <p>
+        <NH3>Theme Settings</NH3>
+        <NP>
           Choose your preferred theme. The theme preference is saved automatically and will persist
           when you reload the page or return to the application later.
-        </p>
-        <p><strong>Current theme:</strong> {{ settingsStore.theme }}</p>
+        </NP>
+        <NP><strong>Current theme:</strong> {{ settingsStore.theme }}</NP>
 
         <div class="controls">
           <NRadioGroup :value="settingsStore.theme" @update:value="settingsStore.setTheme">
@@ -50,11 +50,11 @@ const settingsStore = useSettingsStore()
       </div>
 
       <div class="section">
-        <h3>About Settings Store</h3>
-        <p>
+        <NH3>About Settings Store</NH3>
+        <NP>
           The settings store demonstrates how Pinia can be used to manage application-wide
           preferences. This store includes:
-        </p>
+        </NP>
         <ul>
           <li><strong>State:</strong> Theme preference stored as a reactive reference</li>
           <li><strong>Actions:</strong> Functions to toggle or set the theme explicitly</li>
@@ -79,24 +79,6 @@ const settingsStore = useSettingsStore()
   padding: 1rem 0.5rem;
   box-sizing: border-box;
   width: 100%;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-
-h3 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
-
-p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
 }
 
 .section {
