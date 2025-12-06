@@ -10,54 +10,42 @@ general project enhancements.
 **Note**: For Pinia-specific features and state management patterns, see
 `pinia-ideas.md`.
 
-## UI/Component Improvements
+## Completed Improvements
 
 ### Naive UI Typography Components
 
-**Current State**: The project uses a hybrid approach where Naive UI components
-(`NCard`, `NButton`, `NList`, etc.) are used for interactive elements, while
-custom CSS handles typography (`h1`, `h3`, `p`) and layout containers. This
-pattern is consistent across all views (`PiniaView`, `AboutView`,
-`CounterDisplayView`, `ResourcesView`, `CounterEditorView`).
+**Status**: ✅ **Completed**
 
-**Potential Improvement**: Naive UI provides typography components that would
-be more "Naive UI native":
+**Implementation**: All HTML typography elements (`h1`, `h3`, `p`) have been
+migrated to Naive UI typography components (`NH1`, `NH3`, `NP`) across all
+views and components.
 
-- `NH1`, `NH2`, `NH3` - Heading components
-- `NP` - Paragraph component
-- `NText` - Text component with various styles
-- `NTypography` - Typography container component
+**Changes Made**:
 
-**Benefits**:
+- Replaced all `h1` elements with `NH1` components
+- Replaced all `h3` elements with `NH3` components
+- Replaced all `p` elements with `NP` components
+- Removed custom typography CSS rules (`h1`, `h3`, `p`)
+- Preserved component-specific styling using `:deep()` selectors where needed
+- Maintained existing class attributes (e.g., `green` class, `info-text` class)
 
-- Better integration with Naive UI's design system
+**Benefits Achieved**:
+
 - Automatic theme support (light/dark mode)
-- Consistent spacing and typography across the application
-- Less custom CSS to maintain
+- Consistent typography spacing across the application
+- Better integration with Naive UI's design system
+- Reduced custom CSS maintenance
 
-**Consideration**: This would require refactoring all views simultaneously to
-maintain consistency. The current approach works well and is consistent within
-the project, so this is an optional enhancement rather than a requirement.
-
-**Example Migration**:
-
-```vue
-<!-- Current approach -->
-<h1>About Pinia</h1>
-<p>Pinia is the official state management library...</p>
-
-<!-- Naive UI approach -->
-<NH1>About Pinia</NH1>
-<NP>Pinia is the official state management library...</NP>
-```
-
-**Affected Files**:
+**Files Updated**:
 
 - `src/views/PiniaView.vue`
 - `src/views/AboutView.vue`
 - `src/views/CounterDisplayView.vue`
 - `src/views/ResourcesView.vue`
+- `src/views/SettingsView.vue`
 - `src/components/CounterEditor.vue`
 - `src/components/ProjectInfo.vue`
 
+## UI/Component Improvements
 
+_No pending improvements at this time._
