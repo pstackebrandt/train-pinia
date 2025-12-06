@@ -7,7 +7,7 @@
 
   Features:
     - Displays information about theme settings
-    - Provides controls to toggle between light and dark themes
+    - Provides radio buttons to select light or dark theme
     - Shows current theme state
     - Demonstrates Pinia store usage for application settings
     - Responsive layout using Naive UI components
@@ -16,7 +16,7 @@
     This component is typically used as a route view in Vue Router.
 -->
 <script setup lang="ts">
-import { NCard, NButton, NSpace, NRadioGroup, NRadio } from 'naive-ui'
+import { NCard, NSpace, NRadioGroup, NRadio } from 'naive-ui'
 import { useSettingsStore } from '../stores/settings'
 
 const settingsStore = useSettingsStore()
@@ -27,66 +27,44 @@ const settingsStore = useSettingsStore()
     <NCard>
       <h1>Application Settings</h1>
       <p>
-        Configure your application preferences here. Settings are managed
-        using Pinia stores and persist across browser sessions using
-        localStorage.
+        Configure your application preferences here. Settings are managed using Pinia stores and
+        persist across browser sessions using localStorage.
       </p>
 
       <div class="section">
         <h3>Theme Settings</h3>
         <p>
-          Choose your preferred theme. The theme preference is saved
-          automatically and will persist when you reload the page or return
-          to the application later.
+          Choose your preferred theme. The theme preference is saved automatically and will persist
+          when you reload the page or return to the application later.
         </p>
-        <p>
-          <strong>Current theme:</strong> {{ settingsStore.theme }}
-        </p>
+        <p><strong>Current theme:</strong> {{ settingsStore.theme }}</p>
 
         <div class="controls">
-          <NSpace vertical :size="16">
-            <div>
-              <NRadioGroup
-                :value="settingsStore.theme"
-                @update:value="settingsStore.setTheme"
-              >
-                <NSpace>
-                  <NRadio value="light"> Light </NRadio>
-                  <NRadio value="dark"> Dark </NRadio>
-                </NSpace>
-              </NRadioGroup>
-            </div>
-            <div>
-              <NButton type="primary" @click="settingsStore.toggleTheme">
-                Toggle Theme
-              </NButton>
-            </div>
-          </NSpace>
+          <NRadioGroup :value="settingsStore.theme" @update:value="settingsStore.setTheme">
+            <NSpace>
+              <NRadio value="light"> Light </NRadio>
+              <NRadio value="dark"> Dark </NRadio>
+            </NSpace>
+          </NRadioGroup>
         </div>
       </div>
 
       <div class="section">
         <h3>About Settings Store</h3>
         <p>
-          The settings store demonstrates how Pinia can be used to manage
-          application-wide preferences. This store includes:
+          The settings store demonstrates how Pinia can be used to manage application-wide
+          preferences. This store includes:
         </p>
         <ul>
+          <li><strong>State:</strong> Theme preference stored as a reactive reference</li>
+          <li><strong>Actions:</strong> Functions to toggle or set the theme explicitly</li>
           <li>
-            <strong>State:</strong> Theme preference stored as a reactive
-            reference
+            <strong>Computed Properties:</strong> Derived values like <code>isDark</code> for
+            convenience
           </li>
           <li>
-            <strong>Actions:</strong> Functions to toggle or set the theme
-            explicitly
-          </li>
-          <li>
-            <strong>Computed Properties:</strong> Derived values like
-            <code>isDark</code> for convenience
-          </li>
-          <li>
-            <strong>Persistence:</strong> Automatic saving to localStorage
-            using pinia-plugin-persistedstate
+            <strong>Persistence:</strong> Automatic saving to localStorage using
+            pinia-plugin-persistedstate
           </li>
         </ul>
       </div>
@@ -153,4 +131,3 @@ code {
   }
 }
 </style>
-

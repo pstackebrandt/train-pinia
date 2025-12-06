@@ -27,12 +27,14 @@ import {
   NMenu,
   NDrawer,
   NButton,
+  NIcon,
   darkTheme,
   lightTheme,
 } from 'naive-ui'
 import { computed, h, ref } from 'vue'
 import type { MenuOption } from 'naive-ui'
 import { useSettingsStore } from './stores/settings'
+import { Sunny, Moon } from '@vicons/ionicons5'
 
 const route = useRoute()
 const showMobileMenu = ref(false)
@@ -102,9 +104,17 @@ const handleMenuClick = () => {
 <template>
   <NConfigProvider :theme="naiveTheme">
     <NLayout :has-sider="false">
-      <NLayoutHeader bordered>
+      <NLayoutHeader bordered class="header">
         <NButton class="mobile-menu-button" @click="showMobileMenu = true"> ☰ </NButton>
         <NMenu class="desktop-menu" mode="horizontal" :options="menuOptions" :value="activeKey" />
+        <NButton
+          class="theme-toggle-button"
+          quaternary
+          @click="settingsStore.toggleTheme"
+          :title="settingsStore.isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+        >
+          <NIcon :component="settingsStore.isDark ? Sunny : Moon" />
+        </NButton>
       </NLayoutHeader>
       <NDrawer v-model:show="showMobileMenu" placement="left" width="250">
         <NMenu
@@ -122,12 +132,24 @@ const handleMenuClick = () => {
 </template>
 
 <style scoped>
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
 .mobile-menu-button {
   display: block;
 }
 
 .desktop-menu {
   display: none;
+  flex: 1;
+}
+
+.theme-toggle-button {
+  margin-left: auto;
 }
 
 @media (min-width: 768px) {

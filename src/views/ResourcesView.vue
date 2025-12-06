@@ -48,6 +48,21 @@ const technologies = [
     ],
   },
   {
+    category: 'UI Components',
+    items: [
+      {
+        name: 'Naive UI',
+        url: 'https://www.naiveui.com/',
+        description: 'Vue 3 component library',
+      },
+      {
+        name: '@vicons/ionicons5',
+        url: 'https://www.xicons.org/#/',
+        description: 'Icon library for Vue 3 (Ionicons v5)',
+      },
+    ],
+  },
+  {
     category: 'Development Tools',
     items: [
       {
