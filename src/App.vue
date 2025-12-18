@@ -12,6 +12,9 @@
     - Horizontal menu for desktop screens
     - RouterView container for rendering route components
     - Theme support (light/dark mode) via Naive UI NConfigProvider
+    - Internationalization (i18n) support with language toggle button
+    - Translated menu items and UI labels (English/German)
+    - Automatic locale synchronization with settings store
 
   Usage:
     This component is the root component mounted in main.ts and serves
@@ -31,24 +34,39 @@ import {
   darkTheme,
   lightTheme,
 } from 'naive-ui'
-import { computed, h, ref } from 'vue'
+import { computed, h, ref, watch } from 'vue'
 import type { MenuOption } from 'naive-ui'
 import { useSettingsStore } from './stores/settings'
+import { useI18n } from 'vue-i18n'
+import i18n from './i18n'
 import { Sunny, Moon } from '@vicons/ionicons5'
 
 const route = useRoute()
 const showMobileMenu = ref(false)
 const settingsStore = useSettingsStore()
+const { t } = useI18n()
 
 const naiveTheme = computed(() => (settingsStore.isDark ? darkTheme : lightTheme))
 
-const menuOptions: MenuOption[] = [
+// Sync i18n locale with settings store changes
+watch(
+  () => settingsStore.language,
+  (newLanguage) => {
+    i18n.global.locale.value = newLanguage
+  },
+)
+
+const currentLanguageCode = computed(() => {
+  return settingsStore.language.toUpperCase()
+})
+
+const menuOptions = computed<MenuOption[]>(() => [
   {
-    label: () => h(RouterLink, { to: '/' }, { default: () => 'Home' }),
+    label: () => h(RouterLink, { to: '/' }, { default: () => t('menu.home') }),
     key: '/',
   },
   {
-    label: () => h(RouterLink, { to: '/about' }, { default: () => 'About' }),
+    label: () => h(RouterLink, { to: '/about' }, { default: () => t('menu.about') }),
     key: '/about',
   },
   {
@@ -57,7 +75,7 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         { to: '/counter-editor' },
         {
-          default: () => 'Counter Editor',
+          default: () => t('menu.counterEditor'),
         },
       ),
     key: '/counter-editor',
@@ -68,13 +86,13 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         { to: '/counter-display' },
         {
-          default: () => 'Counter Display',
+          default: () => t('menu.counterDisplay'),
         },
       ),
     key: '/counter-display',
   },
   {
-    label: () => h(RouterLink, { to: '/pinia' }, { default: () => 'Pinia' }),
+    label: () => h(RouterLink, { to: '/pinia' }, { default: () => t('menu.pinia') }),
     key: '/pinia',
   },
   {
@@ -83,16 +101,16 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         { to: '/resources' },
         {
-          default: () => 'Resources',
+          default: () => t('menu.resources'),
         },
       ),
     key: '/resources',
   },
   {
-    label: () => h(RouterLink, { to: '/settings' }, { default: () => 'Settings' }),
+    label: () => h(RouterLink, { to: '/settings' }, { default: () => t('menu.settings') }),
     key: '/settings',
   },
-]
+])
 
 const activeKey = computed(() => route.path)
 
@@ -108,10 +126,18 @@ const handleMenuClick = () => {
         <NButton class="mobile-menu-button" @click="showMobileMenu = true"> ☰ </NButton>
         <NMenu class="desktop-menu" mode="horizontal" :options="menuOptions" :value="activeKey" />
         <NButton
+          class="language-toggle-button"
+          quaternary
+          @click="settingsStore.toggleLanguage"
+          :title="t('language.toggle')"
+        >
+          {{ currentLanguageCode }}
+        </NButton>
+        <NButton
           class="theme-toggle-button"
           quaternary
           @click="settingsStore.toggleTheme"
-          :title="settingsStore.isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+          :title="settingsStore.isDark ? t('theme.toggleToLight') : t('theme.toggleToDark')"
         >
           <NIcon :component="settingsStore.isDark ? Sunny : Moon" />
         </NButton>
@@ -148,8 +174,12 @@ const handleMenuClick = () => {
   flex: 1;
 }
 
-.theme-toggle-button {
+.language-toggle-button {
   margin-left: auto;
+}
+
+.theme-toggle-button {
+  margin-left: 0.5rem;
 }
 
 @media (min-width: 768px) {

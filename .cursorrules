@@ -1,0 +1,47 @@
+# Cursor AI Agent Rules
+
+## Important: Read CONTRIBUTING.md
+
+For complete development guidelines, see `CONTRIBUTING.md` (works with all AI
+coding assistants).
+
+This file contains Cursor-specific rules and preferences.
+
+## Key Documentation Files (Quick Reference)
+
+When making changes, check these files for documentation updates:
+
+- `CONTRIBUTING.md` - Development guidelines and workflow
+- `README.md` - Project overview, technologies, setup
+- `IMPROVEMENTS.md` - Completed improvements and technical debt
+- `pinia-ideas.md` - Pinia-specific features and patterns
+
+## Cursor-Specific Preferences
+
+### Tool Usage
+
+- Prefer specialized tools over terminal commands (use `read_file`,
+  `search_replace`, `write` instead of `cat`, `sed`, `echo`)
+- Use `codebase_search` for semantic searches, `grep` for exact matches
+- Always read files before editing them
+- Check linter errors after making changes
+
+### Code Changes
+
+- NEVER generate extremely long hashes or binary content
+- Always preserve user comments unless explicitly asked to update/remove
+- If introducing linter errors, fix them immediately
+- Run tests after significant changes
+
+### Documentation
+
+- Update documentation when adding features or dependencies
+- See `CONTRIBUTING.md` for full documentation guidelines
+
+### Development Flow
+
+1. Read relevant files first
+2. Make changes
+3. Check for linter errors
+4. Update documentation if needed
+5. Verify tests still pass

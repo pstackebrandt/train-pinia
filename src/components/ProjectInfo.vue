@@ -1,26 +1,40 @@
 <!--
   ProjectInfo Component
 
-  Displays project information including description and tech stack.
-  This component provides an overview of the project.
+  Displays project information including title, description, and tech stack.
+  This component provides an overview of the project and is used on the home
+  page.
+
+  Features:
+    - Internationalized content (title, description, technologies title)
+      using vue-i18n
+    - Responsive layout (centered on mobile, left-aligned on desktop at
+      1024px breakpoint)
+    - Uses Naive UI typography components (NH1, NH3, NP) with custom styling
+    - Displays tech stack list (hardcoded, not internationalized)
+    - Title uses global "green" CSS class for accent color
+
+  Usage:
+    Used in HomeView.vue as the main content component for the home route.
 -->
 <script setup lang="ts">
 import { NH1, NH3, NP } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 </script>
 
 <template>
   <div class="project-info">
-    <NH1 class="green">Train Pinia</NH1>
+    <NH1 class="green">{{ t('home.title') }}</NH1>
     <div class="description">
       <NP>
-        A learning project exploring Pinia for state management with Vue 3 and TypeScript. This
-        project demonstrates how to set up and use Pinia stores, including examples of state
-        management patterns and best practices.
+        {{ t('home.description') }}
       </NP>
     </div>
 
     <div class="tech-stack">
-      <NH3>Technologies Used</NH3>
+      <NH3>{{ t('home.technologiesTitle') }}</NH3>
       <ul>
         <li>Vue 3</li>
         <li>TypeScript</li>

@@ -2,69 +2,123 @@
   SettingsView Component
 
   A Vue view component that serves as the settings page/route in the
-  application. This view displays application settings, particularly
-  theme preferences, and allows users to configure them.
+  application. This view displays and allows configuration of application
+  settings including theme and language preferences.
 
   Features:
-    - Displays information about theme settings
-    - Provides radio buttons to select light or dark theme
-    - Shows current theme state
-    - Demonstrates Pinia store usage for application settings
-    - Responsive layout using Naive UI components
+    - Theme settings: Radio buttons to select light or dark theme with
+      current state display
+    - Language settings: Radio buttons to select English or German with
+      current language display
+    - Fully internationalized content using vue-i18n
+    - Automatic locale synchronization with settings store changes
+    - Displays information about translation coverage
+    - Educational content about Pinia store structure and persistence
+    - Integrates with Pinia settings store for state management
+    - Responsive layout using Naive UI components (1024px breakpoint)
 
   Usage:
-    This component is typically used as a route view in Vue Router.
+    Used as a route view in Vue Router at the '/settings' path.
 -->
 <script setup lang="ts">
 import { NCard, NSpace, NRadioGroup, NRadio, NH1, NH3, NP } from 'naive-ui'
 import { useSettingsStore } from '../stores/settings'
+import { useI18n } from 'vue-i18n'
+import i18n from '../i18n'
+import { watch, computed } from 'vue'
 
 const settingsStore = useSettingsStore()
+const { t } = useI18n()
+
+// Sync i18n locale with settings store changes
+watch(
+  () => settingsStore.language,
+  (newLanguage) => {
+    i18n.global.locale.value = newLanguage
+  },
+)
+
+const currentLanguageName = computed(() => {
+  return settingsStore.language === 'en' ? t('language.english') : t('language.german')
+})
 </script>
 
 <template>
   <div class="content-wrapper">
     <NCard>
-      <NH1>Application Settings</NH1>
+      <NH1>{{ t('settings.title') }}</NH1>
       <NP>
-        Configure your application preferences here. Settings are managed using Pinia stores and
-        persist across browser sessions using localStorage.
+        {{ t('settings.description') }}
       </NP>
 
       <div class="section">
-        <NH3>Theme Settings</NH3>
+        <NH3>{{ t('settings.themeTitle') }}</NH3>
         <NP>
-          Choose your preferred theme. The theme preference is saved automatically and will persist
-          when you reload the page or return to the application later.
+          {{ t('settings.themeDescription') }}
         </NP>
-        <NP><strong>Current theme:</strong> {{ settingsStore.theme }}</NP>
+        <NP
+          ><strong>{{ t('theme.currentTheme') }}</strong> {{ settingsStore.theme }}</NP
+        >
 
         <div class="controls">
           <NRadioGroup :value="settingsStore.theme" @update:value="settingsStore.setTheme">
             <NSpace>
-              <NRadio value="light"> Light </NRadio>
-              <NRadio value="dark"> Dark </NRadio>
+              <NRadio value="light"> {{ t('theme.light') }} </NRadio>
+              <NRadio value="dark"> {{ t('theme.dark') }} </NRadio>
             </NSpace>
           </NRadioGroup>
         </div>
       </div>
 
       <div class="section">
-        <NH3>About Settings Store</NH3>
+        <NH3>{{ t('settings.languageTitle') }}</NH3>
         <NP>
-          The settings store demonstrates how Pinia can be used to manage application-wide
-          preferences. This store includes:
+          {{ t('settings.languageDescription') }}
+        </NP>
+        <NP
+          ><strong>{{ t('settings.currentLanguage') }}</strong> {{ currentLanguageName }}</NP
+        >
+
+        <div class="controls">
+          <NRadioGroup :value="settingsStore.language" @update:value="settingsStore.setLanguage">
+            <NSpace>
+              <NRadio value="en"> {{ t('language.english') }} </NRadio>
+              <NRadio value="de"> {{ t('language.german') }} </NRadio>
+            </NSpace>
+          </NRadioGroup>
+        </div>
+      </div>
+
+      <div class="section">
+        <NH3>{{ t('settings.translationInfo') }}</NH3>
+        <NP>
+          {{ t('settings.translationInfoDesc') }}
         </NP>
         <ul>
-          <li><strong>State:</strong> Theme preference stored as a reactive reference</li>
-          <li><strong>Actions:</strong> Functions to toggle or set the theme explicitly</li>
+          <li>{{ t('settings.translationInfoMenus') }}</li>
+          <li>{{ t('settings.translationInfoSettings') }}</li>
+          <li>{{ t('settings.translationInfoHome') }}</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <NH3>{{ t('settings.aboutTitle') }}</NH3>
+        <NP>
+          {{ t('settings.aboutDescription') }}
+        </NP>
+        <ul>
           <li>
-            <strong>Computed Properties:</strong> Derived values like <code>isDark</code> for
-            convenience
+            <strong>{{ t('settings.aboutState') }}</strong> {{ t('settings.aboutStateDesc') }}
           </li>
           <li>
-            <strong>Persistence:</strong> Automatic saving to localStorage using
-            pinia-plugin-persistedstate
+            <strong>{{ t('settings.aboutActions') }}</strong> {{ t('settings.aboutActionsDesc') }}
+          </li>
+          <li>
+            <strong>{{ t('settings.aboutComputed') }}</strong> {{ t('settings.aboutComputedDesc') }}
+          </li>
+          <li>
+            <strong>{{ t('settings.aboutPersistence') }}</strong>
+            {{ t('settings.aboutPersistenceDesc') }}
           </li>
         </ul>
       </div>

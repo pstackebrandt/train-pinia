@@ -8,7 +8,7 @@ implementation beyond the basic counter example, including advanced patterns,
 plugins, testing, and other Pinia-specific functionality.
 
 **Note**: For general project improvements (UI components, styling, build
-configuration, etc.), see `improvements.md`.
+configuration, etc.), see `IMPROVEMENTS.md`.
 
 ## Table of Contents
 

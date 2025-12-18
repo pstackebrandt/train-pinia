@@ -17,6 +17,7 @@ including examples of state management patterns and best practices.
 - TypeScript
 - Pinia
 - Vue Router
+- Vue I18n (Internationalization)
 - Vite
 - Vitest
 - ESLint
